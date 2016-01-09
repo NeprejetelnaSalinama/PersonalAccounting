@@ -19,7 +19,6 @@ namespace DenisAccounting.Database
             };
 
             context.Currencies.AddRange(currencies);
-            currencies.ForEach(currency => context.Currencies.Add(currency));
             context.SaveChanges(); 
 
             var categoryTypes = new List<CategoryType>
@@ -53,7 +52,6 @@ namespace DenisAccounting.Database
             };
 
             context.Categories.AddRange(categories);
-            categories.ForEach(category => context.Categories.Add(category));
             context.SaveChanges();
 
         }
