@@ -31,24 +31,25 @@ namespace DenisAccounting.Database
             context.SaveChanges();
 
             var incomeType = categoryTypes.Find(categoryType => categoryType.Name == "Income");
+            var outcomeType = categoryTypes.Find(categoryType => categoryType.Name == "Outcome");
 
             var categories = new List<Category>
             {
-            new Category{ CategoryType = incomeType , Name="BasicSalary", Id = Guid.NewGuid() },
-            // new Category{categoryTypes(Name = "Income"), Name="ExtraSalary"},
-            // new Category{categoryTypes(Name = "Income"), Name="InvestmentIncome"},
-            // new Category{categoryTypes(Name = "Income"), Name="Gift"},
-            // new Category{categoryTypes(Name = "Outcome"), Name="Housing"},
-            // new Category{categoryTypes(Name = "Outcome"), Name="Food"},
-            // new Category{categoryTypes(Name = "Outcome"), Name="Pets"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Transportation"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Insurance"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Entertainment and Recreation"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Clothing"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Debts"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Investments"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Phone"},
-            // new Category{categoryTypes(name = "Outcome"), Name="Medical"}
+            new Category{CategoryType = incomeType , Name="BasicSalary", Id = Guid.NewGuid()},
+            new Category{CategoryType = incomeType , Name="ExtraSalary", Id = Guid.NewGuid()},
+            new Category{CategoryType = incomeType , Name="InvestmentIncome", Id = Guid.NewGuid()},
+            new Category{CategoryType = incomeType , Name="Gift", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Housing", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Food", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Pets", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Transportation", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Insurance", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Entertainment and Recreation", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Clothing", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Debts", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Phone", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Medical", Id = Guid.NewGuid()},
+            new Category{CategoryType = outcomeType , Name="Hobbies", Id = Guid.NewGuid()}
             };
 
             context.Categories.AddRange(categories);
