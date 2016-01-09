@@ -139,7 +139,6 @@
     <Compile Include="Models\CategoryType.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\Home\SummaryViewModel.cs" />
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
