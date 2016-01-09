@@ -7,8 +7,7 @@ namespace DenisAccounting.Models
 {
     public class Category
     {
-        public int CategoryID { get; set; }
-        public int CategoryTypeID { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
         public virtual CategoryType CategoryType { get; set; }

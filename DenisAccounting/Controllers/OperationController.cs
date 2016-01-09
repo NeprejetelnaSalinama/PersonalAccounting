@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DenisAccounting.DAL;
+using DenisAccounting.Database;
 using DenisAccounting.Models;
 
 namespace DenisAccounting.Controllers
@@ -40,8 +40,8 @@ namespace DenisAccounting.Controllers
         // GET: Operation/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name");
-            ViewBag.CurrencyID = new SelectList(db.Currencies, "CurrencyID", "Code");
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.Id = new SelectList(db.Currencies, "Id", "Code");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace DenisAccounting.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OperationID,CurrencyID,CategoryID,Amount,Date,Description")] Operation operation)
+        public ActionResult Create([Bind(Include = "Id,Id,Id,Amount,Date,Description")] Operation operation)
         {
             if (ModelState.IsValid)
             {
@@ -59,24 +59,24 @@ namespace DenisAccounting.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", operation.CategoryID);
-            ViewBag.CurrencyID = new SelectList(db.Currencies, "CurrencyID", "Code", operation.CurrencyID);
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Name", operation.Id);
+            ViewBag.Id = new SelectList(db.Currencies, "Id", "Code", operation.Id);
             return View(operation);
         }
 
         // GET: Operation/AddIncome
         public ActionResult AddIncome()
         {
-            ViewBag.CategoryID = new SelectList(from x in db.Categories.Where(s => s.CategoryTypeID == 1) select x, "CategoryID", "Name");
-            ViewBag.CurrencyID = new SelectList(db.Currencies, "CurrencyID", "Code");
+            ViewBag.Id = new SelectList(from x in db.Categories.Where(s => s.Name == "Income") select x, "Id", "Name");
+            ViewBag.Id = new SelectList(db.Currencies, "Id", "Code");
             return View();
         }
 
         // GET: Operation/AddOutcome
         public ActionResult AddOutcome()
         {
-            ViewBag.CategoryID = new SelectList(from x in db.Categories.Where(s => s.CategoryTypeID == 2) select x, "CategoryID", "Name");
-            ViewBag.CurrencyID = new SelectList(db.Currencies, "CurrencyID", "Code");
+            ViewBag.Id = new SelectList(from x in db.Categories.Where(s => s.Name == "Outcome") select x, "Id", "Name");
+            ViewBag.Id = new SelectList(db.Currencies, "Id", "Code");
             return View();
         }
 
@@ -92,8 +92,8 @@ namespace DenisAccounting.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", operation.CategoryID);
-            ViewBag.CurrencyID = new SelectList(db.Currencies, "CurrencyID", "Code", operation.CurrencyID);
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Name", operation.Id);
+            ViewBag.Id = new SelectList(db.Currencies, "Id", "Code", operation.Id);
             return View(operation);
         }
 
@@ -102,7 +102,7 @@ namespace DenisAccounting.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OperationID,CurrencyID,CategoryID,Amount,Date,Description")] Operation operation)
+        public ActionResult Edit([Bind(Include = "Id,Id,Id,Amount,Date,Description")] Operation operation)
         {
             if (ModelState.IsValid)
             {
@@ -110,8 +110,8 @@ namespace DenisAccounting.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", operation.CategoryID);
-            ViewBag.CurrencyID = new SelectList(db.Currencies, "CurrencyID", "Code", operation.CurrencyID);
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Name", operation.Id);
+            ViewBag.Id = new SelectList(db.Currencies, "Id", "Code", operation.Id);
             return View(operation);
         }
 

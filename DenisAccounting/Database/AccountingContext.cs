@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace DenisAccounting.DAL
+namespace DenisAccounting.Database
 {
     public class AccountingContext : DbContext
     {

@@ -7,9 +7,7 @@ namespace DenisAccounting.Models
 {
     public class Operation
     {
-        public int OperationID { get; set; }
-        public int CurrencyID { get; set; }
-        public int CategoryID { get; set; }
+        public Guid Id { get; set; }
         public float Amount { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }

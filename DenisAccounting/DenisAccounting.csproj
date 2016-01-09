@@ -131,8 +131,8 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperationController.cs" />
-    <Compile Include="DAL\AccountingContext.cs" />
-    <Compile Include="DAL\AccountingInitializer.cs" />
+    <Compile Include="Database\AccountingContext.cs" />
+    <Compile Include="Database\AccountingInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

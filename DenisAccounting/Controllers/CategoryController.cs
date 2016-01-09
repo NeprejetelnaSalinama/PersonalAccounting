@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DenisAccounting.DAL;
+using DenisAccounting.Database;
 using DenisAccounting.Models;
 
 namespace DenisAccounting.Controllers
@@ -40,7 +40,7 @@ namespace DenisAccounting.Controllers
         // GET: Category/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryTypeID = new SelectList(db.CategoryTypes, "CategoryTypeID", "name");
+            ViewBag.Id = new SelectList(db.CategoryTypes, "Id", "name");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace DenisAccounting.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryID,CategoryTypeID,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace DenisAccounting.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryTypeID = new SelectList(db.CategoryTypes, "CategoryTypeID", "name", category.CategoryTypeID);
+            ViewBag.Id = new SelectList(db.CategoryTypes, "Id", "name", category.Id);
             return View(category);
         }
 
@@ -74,7 +74,7 @@ namespace DenisAccounting.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryTypeID = new SelectList(db.CategoryTypes, "CategoryTypeID", "name", category.CategoryTypeID);
+            ViewBag.Id = new SelectList(db.CategoryTypes, "Id", "name", category.Id);
             return View(category);
         }
 
@@ -83,7 +83,7 @@ namespace DenisAccounting.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,CategoryTypeID,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace DenisAccounting.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryTypeID = new SelectList(db.CategoryTypes, "CategoryTypeID", "name", category.CategoryTypeID);
+            ViewBag.Id = new SelectList(db.CategoryTypes, "Id", "name", category.Id);
             return View(category);
         }
 
