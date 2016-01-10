@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\BaseManager.cs" />
     <Compile Include="Managers\CategoryManager.cs" />
     <Compile Include="Managers\CurrencyManager.cs" />
     <Compile Include="Models\CategoryType.cs" />
