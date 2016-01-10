@@ -6,15 +6,15 @@ using DenisAccounting.Models.Operations;
 
 namespace DenisAccounting.Models.Home
 {
-    public class HomeViewModel
+    public class IndexViewModel
     {
         public string Balance { get; set; }
 
-        public IEnumerable<Operations.OperationViewModel> Operations { get; set; }
+        public IEnumerable<Operations.IndexViewModel> Operations { get; set; }
 
-        public HomeViewModel()
+        public IndexViewModel()
         {
-            Operations = Enumerable.Empty<OperationViewModel>();
+            Operations = Enumerable.Empty<Operations.IndexViewModel>();
         }
     }
 }

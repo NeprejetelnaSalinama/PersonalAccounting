@@ -134,6 +134,7 @@
     <Compile Include="App_Start\MappingConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Constants\SharedConstants.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperationController.cs" />
@@ -142,12 +143,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\CategoryManager.cs" />
+    <Compile Include="Managers\CurrencyManager.cs" />
     <Compile Include="Models\CategoryType.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\Home\HomeViewModel.cs" />
+    <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Operation.cs" />
-    <Compile Include="Models\Operations\OperationViewModel.cs" />
+    <Compile Include="Models\Operations\CreateViewModel.cs" />
+    <Compile Include="Models\Operations\EditViewModel.cs" />
+    <Compile Include="Models\Operations\IndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DenisAccounting.Models.Operations
 {
-    public class OperationViewModel
+    public class IndexViewModel
     {
         public Guid Id { get; set; }
 
@@ -15,5 +15,7 @@ namespace DenisAccounting.Models.Operations
         public string Description { get; set; }
 
         public string CategoryName { get; set; }
+
+        public string CurrencyCode { get; set; }
     }
 }

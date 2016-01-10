@@ -17,12 +17,17 @@ namespace DenisAccounting
 
         private static void RegisterOperationsMappings()
         {
-            Mapper.CreateMap<Operation, OperationViewModel>()
-                .ForMember(view => view.Id, options => options.MapFrom(entity => entity.Id))
-                .ForMember(view => view.Amount, options => options.MapFrom(entity => entity.Amount.ToString()))
-                .ForMember(view => view.Date, options => options.MapFrom(entity => entity.Date))
-                .ForMember(view => view.Description, options => options.MapFrom(entity => entity.Description))
-                .ForMember(view => view.CategoryName, options => options.MapFrom(entity => entity.Category.Name));
+            Mapper.CreateMap<Operation, Models.Operations.IndexViewModel>()
+                .ForMember(view => view.Amount, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Amount.ToString()))
+                .ForMember(view => view.CategoryName, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Category.Name))
+                .ForMember(view => view.CurrencyCode , (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Currency.Code));
+
+            Mapper.CreateMap<Operation, Models.Operations.EditViewModel>()
+                .ForMember(view => view.Amount, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Amount.ToString()))
+                .ForMember(view => view.CategoryId, options => options.MapFrom(entity => entity.Category.Id.ToString()))
+                .ForMember(view => view.CurrencyId, options => options.MapFrom(entity => entity.Currency.Id.ToString()));
+
+            Mapper.CreateMap<Operation, Models.Operations.CreateViewModel>();
         }
     }
 }
