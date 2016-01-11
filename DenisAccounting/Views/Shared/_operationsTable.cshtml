@@ -2,14 +2,15 @@
 
 @model IEnumerable <IndexViewModel>
 
-<table>
-    <th>
+<table style="width:100%">
+    <tr>
     <td>Date</td>
     <td>Amount</td>
     <td>Category</td>
     <td>Description</td>
-    </th>
+    </tr>
     @foreach (var operation in Model)
     {
         Html.RenderPartial("_operationRow", operation);
     }
+</table>
