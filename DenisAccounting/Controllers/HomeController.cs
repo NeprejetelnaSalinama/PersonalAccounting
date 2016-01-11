@@ -21,7 +21,7 @@ namespace DenisAccounting.Controllers
         }
 
 
-        public ViewResult Home()
+        public ViewResult Index()
         {
             const int TOP_OPERATIONS = 10;
 
@@ -31,10 +31,7 @@ namespace DenisAccounting.Controllers
             var model = new Models.Home.IndexViewModel
             {
                 Balance = $"{operationsManager.getBalance().ToString()} {Constants.SharedConstants.DEFAULT_CURRENCY}",
-                Operations = new IEnumerable<Models.Operations.IndexViewModel>
-                {
-
-                }
+                Operations = operationsModel
             };
     
 
