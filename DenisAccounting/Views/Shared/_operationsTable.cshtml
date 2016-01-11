@@ -1,0 +1,15 @@
+﻿@using DenisAccounting.Models.Operations;
+
+@model IEnumerable <IndexViewModel>
+
+<table>
+    <th>
+    <td>Date</td>
+    <td>Amount</td>
+    <td>Category</td>
+    <td>Description</td>
+    </th>
+    @foreach (var operation in Model)
+    {
+        Html.RenderPartial("_operationRow", operation);
+    }
