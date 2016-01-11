@@ -55,9 +55,25 @@ namespace DenisAccounting.Controllers
             var model = new CreateViewModel
             {
                 Categories = categories,
-                CurrencyId = currency.Id
+                CurrencyId = currency.Id,
             };
-            return View();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "OperationID,CurrencyID,CategoryID,Amount,Date,Description")] Operation operation)
+        {
+            if (ModelState.IsValid)
+            {
+                database.Operations.Add(operation);
+                database.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CategoryID = new SelectList(database.Categories, "CategoryID", "Name", operation.CategoryID);
+            ViewBag.CurrencyID = new SelectList(database.Currencies, "CurrencyID", "Code", operation.CurrencyID);
+            return View(operation);
         }
     }
 }
