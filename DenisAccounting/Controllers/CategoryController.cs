@@ -21,15 +21,15 @@ namespace DenisAccounting.Controllers
             categoriesManager = new CategoriesManager(database);
         }
 
-        public ViewResult IncomeIndex()
-        {
+        //public ViewResult IncomeIndex()
+        //{
             
 
-            var categories = categoriesManager.GetCategoriesSelectList();
-            var categoriesModel = categories
-                .Select(Category);
+            //var categories = categoriesManager.GetCategoriesSelectList();
+            //var categoriesModel = categories
+            //    .Select(Category);
 
-            return View(categoriesModel);
-        }
+           // return View(categoriesModel);
+        //}
     }
 }

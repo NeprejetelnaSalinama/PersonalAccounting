@@ -46,9 +46,9 @@ namespace DenisAccounting.Controllers
             return View(category);
         }
 
-        public ActionResult Create()
-        {
-            categoriesManager.Equals;            
-        }
+        //public ActionResult Create()
+        //{
+        //    categoriesManager.Equals;            
+        //}
     }
 }

@@ -12,7 +12,6 @@ namespace DenisAccounting.Database
         }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CategoryType> CategoryTypes { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Operation> Operations { get; set; }
 

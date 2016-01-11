@@ -4,19 +4,19 @@ using System.Linq;
 using DenisAccounting.Database;
 using System.Data.Entity;
 using System.Web.Mvc;
+using DenisAccounting.Models;
 
 namespace DenisAccounting.Managers
 {
     public class CategoriesManager : BaseManager
-{
+    {
         public CategoriesManager(AccountingContext db) : base(db) { }
 
-        public IEnumerable<SelectListItem> GetCategoriesSelectList(Guid? selectedId, Guid typeId)
+        public IEnumerable<SelectListItem> GetCategoriesSelectList(Guid? selectedId, Category.CategoryType categoryType)
 	    {
             var model = database
                 .Categories
-                .Include(category => category.CategoryType)
-                .Where(category => category.CategoryType.Id == typeId)
+                .Where(category => category.Type == categoryType)
                 .Select(category => new SelectListItem
                 {
                     Value = category.Id.ToString(),
@@ -26,5 +26,5 @@ namespace DenisAccounting.Managers
                 .ToList();
             return model;
 	    }
-}
+    }   
 }
