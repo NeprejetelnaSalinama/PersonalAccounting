@@ -144,9 +144,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Managers\BaseManager.cs" />
-    <Compile Include="Managers\CategoryManager.cs" />
-    <Compile Include="Managers\CurrencyManager.cs" />
-    <Compile Include="Managers\OperationManager.cs" />
+    <Compile Include="Managers\CategoriesManager.cs" />
+    <Compile Include="Managers\CurrenciesManager.cs" />
+    <Compile Include="Managers\OperationsManager.cs" />
     <Compile Include="Models\CategoryType.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Currency.cs" />

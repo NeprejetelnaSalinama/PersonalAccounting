@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using DenisAccounting.Database;
 using DenisAccounting.Models;
 
 namespace DenisAccounting.Managers
 {
-    public class OperationManager : BaseManager
+    public class OperationsManager : BaseManager
     {
+        public OperationsManager(AccountingContext db) : base(db) { }
+
         public IEnumerable<Operation> getOperations()
         {
             var operations = database

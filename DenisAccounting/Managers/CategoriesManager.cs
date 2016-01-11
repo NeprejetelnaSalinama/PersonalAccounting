@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DenisAccounting.Models;
+using DenisAccounting.Database;
 using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace DenisAccounting.Managers
 {
-    public class CategoryManager : BaseManager
+    public class CategoriesManager : BaseManager
 {
+        public CategoriesManager(AccountingContext db) : base(db) { }
 
         public IEnumerable<SelectListItem> GetCategoriesSelectList(Guid? selectedId, Guid typeId)
-	{
+	    {
             var model = database
                 .Categories
                 .Include(category => category.CategoryType)
@@ -24,6 +25,6 @@ namespace DenisAccounting.Managers
                 })
                 .ToList();
             return model;
-	}
+	    }
 }
 }

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DenisAccounting.Models;
+using DenisAccounting.Database;
 using System.Web.Mvc;
 
 namespace DenisAccounting.Managers
 {
-    public class CurrencyManager : BaseManager
+    public class CurrenciesManager : BaseManager
     {
+        public CurrenciesManager(AccountingContext db) : base(db) { }
+
         public IEnumerable<SelectListItem> GetCurrenciesSelectList(Guid? selectedId)
         {
             var currencies = database
