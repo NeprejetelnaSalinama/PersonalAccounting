@@ -146,6 +146,7 @@
     <Compile Include="Managers\BaseManager.cs" />
     <Compile Include="Managers\CategoryManager.cs" />
     <Compile Include="Managers\CurrencyManager.cs" />
+    <Compile Include="Managers\OperationManager.cs" />
     <Compile Include="Models\CategoryType.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Currency.cs" />

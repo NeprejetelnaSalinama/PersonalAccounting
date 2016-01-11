@@ -12,7 +12,7 @@ namespace DenisAccounting.Managers
 
         public IEnumerable<SelectListItem> GetCategoriesSelectList(Guid? selectedId, Guid typeId)
 	{
-            var model = db
+            var model = database
                 .Categories
                 .Include(category => category.CategoryType)
                 .Where(category => category.CategoryType.Id == typeId)

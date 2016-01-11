@@ -10,7 +10,7 @@ namespace DenisAccounting.Managers
     {
         public IEnumerable<SelectListItem> GetCurrenciesSelectList(Guid? selectedId)
         {
-            var currenciesList = db
+            var currencies = database
                 .Currencies
                 .Select(currency => new SelectListItem
                 {
@@ -19,7 +19,7 @@ namespace DenisAccounting.Managers
                     Selected = selectedId.HasValue && selectedId.Value == currency.Id
                 })
                 .ToList();
-            return currenciesList;
+            return currencies;
     
         }
     }

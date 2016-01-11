@@ -4,6 +4,6 @@ namespace DenisAccounting.Managers
 {
     public class BaseManager
     {
-        protected AccountingContext db = new AccountingContext();
+        protected AccountingContext database = new AccountingContext();
     }
 }
