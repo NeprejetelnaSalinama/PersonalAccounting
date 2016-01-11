@@ -26,7 +26,8 @@ namespace DenisAccounting.Controllers
             const int TOP_OPERATIONS = 10;
 
             var operations = operationsManager.getTopOperations(TOP_OPERATIONS);
-            var operationsModel = Mapper.Map<Models.Operations.IndexViewModel>(operations);
+            var operationsModel = operations.
+                    Select(Mapper.Map<Models.Operations.IndexViewModel>);
 
             var model = new Models.Home.IndexViewModel
             {
