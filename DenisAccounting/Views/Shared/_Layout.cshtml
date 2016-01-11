@@ -21,8 +21,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Add Income", "Create", "Operation")</li>
-                    <li>@Html.ActionLink("Add Outcome", "Create", "Operation")</li>
+                    <li>@Html.ActionLink("Add Income", "Create", "Operation", new { type = DenisAccounting.Models.Category.CategoryType.Income}, null)</li>
+                    <li>@Html.ActionLink("Add Outcome", "Create", "Operation", new { type = DenisAccounting.Models.Category.CategoryType.Outcome}, null)</li>
                     <li>@Html.ActionLink("History", "Index", "Operation")</li>
                 </ul>
             </div>

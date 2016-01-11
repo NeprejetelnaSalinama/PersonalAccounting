@@ -17,10 +17,12 @@ namespace DenisAccounting.Controllers
     {
         private OperationsManager operationsManager;
         private CategoriesManager categoriesManager;
+        private CurrenciesManager currenciesManager;
 
         public OperationController() {
             operationsManager = new OperationsManager(database);
             categoriesManager = new CategoriesManager(database);
+            currenciesManager = new CurrenciesManager(database);
         }
 
         public ViewResult Index()
@@ -46,9 +48,16 @@ namespace DenisAccounting.Controllers
             return View(category);
         }
 
-        //public ActionResult Create()
-        //{
-        //    categoriesManager.Equals;            
-        //}
+        public ActionResult Create(Category.CategoryType type)
+        {
+            var currency = currenciesManager.GetDefaultCurrency();
+            var categories = categoriesManager.GetCategoriesSelectList(null, type);
+            var model = new CreateViewModel
+            {
+                Categories = categories,
+                CurrencyId = currency.Id
+            };
+            return View();
+        }
     }
 }

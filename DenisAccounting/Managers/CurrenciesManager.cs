@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DenisAccounting.Database;
 using System.Web.Mvc;
+using DenisAccounting.Constants;
+using DenisAccounting.Models;
 
 namespace DenisAccounting.Managers
 {
@@ -23,6 +25,14 @@ namespace DenisAccounting.Managers
                 .ToList();
             return currencies;
     
+        }
+
+        public Currency GetDefaultCurrency()
+        {
+            var defaultCurrency = database
+                .Currencies
+                .Single(currenncy => currenncy.Code == SharedConstants.DEFAULT_CURRENCY);
+            return defaultCurrency;
         }
     }
 }

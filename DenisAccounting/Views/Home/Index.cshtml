@@ -2,6 +2,8 @@
     ViewBag.Title = "Home Page";
 }
 
+@model DenisAccounting.Models.Home.IndexViewModel
+
 <div class="jumbotron">
     <h1>Personal Accounting</h1>
 </div>
@@ -14,7 +16,9 @@
         </p>
     </div>
     <div class="col-md-4">
-        <h2>Last Operations</h2>
-        <p>Here are going to be last 10 operations.</p>
+        <h2>Last 10 Operations</h2>
+        <p>
+            @{Html.RenderPartial("_operationsTable", Model.Operations);}
+        </p>
         </div>
 </div>
