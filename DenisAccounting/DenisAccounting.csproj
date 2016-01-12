@@ -195,8 +195,10 @@
     <Content Include="Views\Operation\Details.cshtml" />
     <Content Include="Views\Operation\Edit.cshtml" />
     <Content Include="Views\Operation\Index.cshtml" />
-    <Content Include="Views\Shared\_operationsTable.cshtml" />
-    <Content Include="Views\Shared\_operationRow.cshtml" />
+    <Content Include="Views\Operation\_operationsTable.cshtml" />
+    <Content Include="Views\Operation\_operationRow.cshtml" />
+    <Content Include="Views\Home\_operationRow.cshtml" />
+    <Content Include="Views\Home\_operationsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

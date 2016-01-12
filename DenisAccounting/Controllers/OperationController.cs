@@ -24,7 +24,7 @@ namespace DenisAccounting.Controllers
             categoriesManager = new CategoriesManager(database);
             currenciesManager = new CurrenciesManager(database);
         }
-
+        
         public ViewResult Index()
         {
             var operations = operationsManager.getOperations();
@@ -33,8 +33,8 @@ namespace DenisAccounting.Controllers
 
             return View(operationsModel);
         }
-        
 
+        
         public ActionResult Details(Guid? id)
         {
             Operation operation = database.Operations.Find(id);
@@ -50,6 +50,7 @@ namespace DenisAccounting.Controllers
             model.Categories = categoriesManager.GetCategoriesSelectList(model.CategoryId, type);
             return View(model);        
         }
+        
 
         private void ValidateCreateModel(CreateViewModel model)
         {
@@ -105,6 +106,36 @@ namespace DenisAccounting.Controllers
             FillCreateModel(model, model.categoryType);
             return View(model);
         }
-        
+
+        public ActionResult Delete(Guid? id)
+        {
+            Operation operation = database.Operations.Find(id);
+            if (operation == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(operation);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(Guid id)
+        {
+            Operation operation = database.Operations.Find(id);
+            database.Operations.Remove(operation);
+            database.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                database.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
     }
 }

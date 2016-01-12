@@ -1,15 +1,17 @@
 ﻿using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DenisAccounting.Models
 {
     public class Operation
     {
         public Guid Id { get; set; }
+        
         public decimal Amount { get; set; }
+        
         public DateTime Date { get; set; }
+        
         public string Description { get; set; }
 
         public virtual  Category Category { get; set; }
