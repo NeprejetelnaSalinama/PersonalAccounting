@@ -7,7 +7,7 @@ namespace DenisAccounting.Constants
 {
     public class SharedConstants
     {
-        public const string DATE_FORMAT = "dd.MM.yyyy"; // to be used in next branch
+        public const string DATE_FORMAT = "dd.MM.yyyy";
         public const string DEFAULT_CURRENCY = "CZK";
     }
 }

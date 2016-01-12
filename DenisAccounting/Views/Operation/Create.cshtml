@@ -1,7 +1,7 @@
 ﻿@model DenisAccounting.Models.Operations.CreateViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create" + Model.categoryType;
 }
 
 <h2>Create</h2>
@@ -47,6 +47,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+                @Html.HiddenFor(model => model.categoryType)
             </div>
         </div>
     </div>

@@ -1,8 +1,10 @@
 ﻿
 
 @model DenisAccounting.Models.Operations.IndexViewModel
-<td>@Model.Date</td>
-<td>@Model.Amount</td>
-<td>@Model.CategoryName</td>
-<td>@Model.Description</td>
-<td>@Html.ActionLink("Details", "Details", Model.Id)</td>
+<tr>
+    <td>@Model.Date</td>
+    <td>@Model.Amount</td>
+    <td>@Model.CategoryName</td>
+    <td>@Model.Description</td>
+    <td>@Html.ActionLink("Details", "Details", new { id = Model.Id})</td>
+<tr>

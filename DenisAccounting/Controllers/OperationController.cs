@@ -33,24 +33,21 @@ namespace DenisAccounting.Controllers
 
             return View(operationsModel);
         }
+        
 
         public ActionResult Details(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = database.Categories.Find(id);
-                if (category == null)
+            Operation operation = database.Operations.Find(id);
+                if (operation == null)
                 {
                     return HttpNotFound();
                 }
-            return View(category);
+            return View(operation);
         }
 
-        private ViewResult FillCreateModel(CreateViewModel model)
+        private ViewResult FillCreateModel(CreateViewModel model, Category.CategoryType type)
         {
-            model.Categories = CategoryManager.GetCategoriesSelectList(model.CategoryId);
+            model.Categories = categoriesManager.GetCategoriesSelectList(model.CategoryId, type);
             return View(model);        
         }
 
@@ -71,17 +68,13 @@ namespace DenisAccounting.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Create(Category.CategoryType type)
         {
-            var currency = currenciesManager.GetDefaultCurrency();
-            var categories = categoriesManager.GetCategoriesSelectList(null, type);
-            var model = new CreateViewModel
-                {
-                    Categories = categories,
-                    CurrencyId = currency.Id
-                };
-	        FillCreateModel(model);
-            return View(model)
+            var model = new CreateViewModel();
+            model.categoryType = type;
+
+            return FillCreateModel(model, model.categoryType);
         }
 
         [HttpPost]
@@ -97,14 +90,21 @@ namespace DenisAccounting.Controllers
                 var operation = Mapper.Map<CreateViewModel, Operation>(model);
                 operation.Id = Guid.NewGuid();
                 operation.Category = category;
+                operation.Currency = currenciesManager.GetDefaultCurrency();
+                if (model.categoryType == Category.CategoryType.Outcome)
+                {
+                    operation.Amount = model.Amount * -1;
+                }
 
                 database.Operations.Add(operation);
-
+                database.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
-
-            FillCreateModel(model);
+            
+            FillCreateModel(model, model.categoryType);
             return View(model);
         }
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace DenisAccounting.Models.Operations
@@ -20,16 +21,16 @@ namespace DenisAccounting.Models.Operations
         public decimal Amount { get; set; }
 
         [DisplayName("Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.SharedConstants.DATE_FORMAT)]
         public DateTime Date { get; set; }
 
         [DisplayName("Description")]
         public string Description { get; set; }
 
-        [DisplayName("Currency")]
-        public Guid? CurrencyId { get; set; }
-
         [DisplayName("Category")]
         public Guid? CategoryId { get; set; }
+
+        public Category.CategoryType categoryType { get; set; }
 
 
     }
