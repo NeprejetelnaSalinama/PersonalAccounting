@@ -25,7 +25,7 @@ namespace DenisAccounting.Models.Operations
         [DisplayName("Description")]
         public string Description { get; set; }
 
-        [DisplayName("Category")]
+        [DisplayName("Currency")]
         public Guid? CurrencyId { get; set; }
 
         [DisplayName("Category")]

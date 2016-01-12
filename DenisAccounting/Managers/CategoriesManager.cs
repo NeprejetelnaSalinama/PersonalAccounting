@@ -26,5 +26,7 @@ namespace DenisAccounting.Managers
                 .ToList();
             return model;
 	    }
+
+        
     }   
 }

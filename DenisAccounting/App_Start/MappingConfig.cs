@@ -26,8 +26,7 @@ namespace DenisAccounting
                 .ForMember(view => view.Amount, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Amount.ToString()))
                 .ForMember(view => view.CategoryId, options => options.MapFrom(entity => entity.Category.Id.ToString()))
                 .ForMember(view => view.CurrencyId, options => options.MapFrom(entity => entity.Currency.Id.ToString()));
-
-            Mapper.CreateMap<Operation, Models.Operations.CreateViewModel>();
+            
         }
     }
 }
