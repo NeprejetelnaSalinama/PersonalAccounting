@@ -48,9 +48,9 @@ namespace DenisAccounting.Controllers
             return View(category);
         }
 
-        private ViewResult FillCreateModel(CreateViewModel model, Category.CategoryType type)
+        private ViewResult FillCreateModel(CreateViewModel model)
         {
-            model.Categories = categoriesManager.GetCategoriesSelectList(model.CategoryId, type);
+            model.Categories = CategoryManager.GetCategoriesSelectList(model.CategoryId);
             return View(model);        
         }
 
@@ -75,10 +75,13 @@ namespace DenisAccounting.Controllers
         {
             var currency = currenciesManager.GetDefaultCurrency();
             var categories = categoriesManager.GetCategoriesSelectList(null, type);
-            var model = new CreateViewModel();
-
-            FillCreateModel(model, type);
-            return View(model);
+            var model = new CreateViewModel
+                {
+                    Categories = categories,
+                    CurrencyId = currency.Id
+                };
+	        FillCreateModel(model);
+            return View(model)
         }
 
         [HttpPost]
@@ -100,7 +103,7 @@ namespace DenisAccounting.Controllers
                 return RedirectToAction("Index");
             }
 
-            FillCreateModel(model, database.Categories.Where(category => category.Id == model.CategoryId).Select(d => d.Type).ToList().First() );
+            FillCreateModel(model);
             return View(model);
         }
     }
