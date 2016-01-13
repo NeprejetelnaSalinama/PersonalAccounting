@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DenisAccounting.Models.Operations;
 using DenisAccounting.Models;
@@ -64,14 +60,26 @@ namespace DenisAccounting.Controllers
             if (!database.Categories.Where(category => category.Id == model.CategoryId).Any())
             {
                 ModelState.AddModelError("CategoryId", "Category not found. Pick one from the list.");
-
-
             }
         }
+        
 
         [HttpGet]
         public ActionResult Create(Category.CategoryType type)
         {
+            /*try {
+                if (!Enum.IsDefined(typeof(Category.CategoryType), type)
+                    {
+                }
+            }
+            catch (Exception exception)
+            {
+                return 
+            }
+            {
+                return Exception;
+            }*/
+
             var model = new CreateViewModel();
             model.categoryType = type;
 
