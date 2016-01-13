@@ -17,7 +17,6 @@ namespace DenisAccounting
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MappingConfig.RegisterMappings();
-            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-GB");
         }
     }
 }
