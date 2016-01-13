@@ -153,7 +153,7 @@
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\Operations\CreateViewModel.cs" />
     <Compile Include="Models\Operations\EditViewModel.cs" />
-    <Compile Include="Models\Operations\IndexViewModel.cs" />
+    <Compile Include="Models\Operations\OperationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,11 +189,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Operation\Create.cshtml" />
     <Content Include="Views\Operation\Delete.cshtml" />
     <Content Include="Views\Operation\Details.cshtml" />
-    <Content Include="Views\Operation\Edit.cshtml" />
     <Content Include="Views\Operation\Index.cshtml" />
     <Content Include="Views\Operation\_operationsTable.cshtml" />
     <Content Include="Views\Operation\_operationRow.cshtml" />

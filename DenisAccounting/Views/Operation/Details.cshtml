@@ -1,4 +1,4 @@
-﻿@model DenisAccounting.Models.Operation
+﻿@model DenisAccounting.Models.Operations.OperationViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -27,19 +27,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Currency.Code)
+            @Html.DisplayNameFor(model => model.CurrencyCode)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Currency.Code)
+            @Html.DisplayFor(model => model.CurrencyCode)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.Name)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
         <dt>

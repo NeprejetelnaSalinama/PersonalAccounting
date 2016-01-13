@@ -25,7 +25,7 @@ namespace DenisAccounting.Controllers
         {
             var operations = operationsManager.getOperations();
             var operationsModel = operations
-                .Select(Mapper.Map<IndexViewModel>);
+                .Select(Mapper.Map<OperationViewModel>);
 
             return View(operationsModel);
         }
@@ -38,12 +38,14 @@ namespace DenisAccounting.Controllers
                 {
                     return HttpNotFound();
                 }
-            return View(operation);
+            var model = Mapper.Map<Operation, OperationViewModel>(operation);
+
+            return View(model);
         }
 
-        private ViewResult FillCreateModel(CreateViewModel model, Category.CategoryType type)
+        private ViewResult FillCreateModel(CreateViewModel model)
         {
-            model.Categories = categoriesManager.GetCategoriesSelectList(model.CategoryId, type);
+            model.Categories = categoriesManager.GetCategoriesSelectList(model.CategoryId, model.CategoryType);
             return View(model);        
         }
         
@@ -62,28 +64,31 @@ namespace DenisAccounting.Controllers
                 ModelState.AddModelError("CategoryId", "Category not found. Pick one from the list.");
             }
         }
-        
+
+
+        public ActionResult AddOutcome()
+        {
+            return RedirectToAction("Create", new { type = Category.CategoryType.Outcome });
+        }
+
+        public ActionResult AddIncome()
+        {
+            return RedirectToAction("Create", new { type = Category.CategoryType.Income });
+        }
+
 
         [HttpGet]
         public ActionResult Create(Category.CategoryType type)
         {
-            /*try {
-                if (!Enum.IsDefined(typeof(Category.CategoryType), type)
-                    {
-                }
-            }
-            catch (Exception exception)
+            if (type == null)
             {
-                return 
+                return HttpNotFound();
             }
-            {
-                return Exception;
-            }*/
 
             var model = new CreateViewModel();
-            model.categoryType = type;
+            model.CategoryType = type;
 
-            return FillCreateModel(model, model.categoryType);
+            return FillCreateModel(model);
         }
 
         [HttpPost]
@@ -100,7 +105,7 @@ namespace DenisAccounting.Controllers
                 operation.Id = Guid.NewGuid();
                 operation.Category = category;
                 operation.Currency = currenciesManager.GetDefaultCurrency();
-                if (model.categoryType == Category.CategoryType.Outcome)
+                if (model.CategoryType == Category.CategoryType.Outcome)
                 {
                     operation.Amount = model.Amount * -1;
                 }
@@ -110,8 +115,8 @@ namespace DenisAccounting.Controllers
                 
                 return RedirectToAction("Index");
             }
-            
-            FillCreateModel(model, model.categoryType);
+                        
+            FillCreateModel(model);
             return View(model);
         }
 
@@ -122,8 +127,9 @@ namespace DenisAccounting.Controllers
             {
                 return HttpNotFound();
             }
+            var model = Mapper.Map<Operation, OperationViewModel>(operation);
 
-            return View(operation);
+            return View(model);
         }
 
         [HttpPost, ActionName("Delete")]

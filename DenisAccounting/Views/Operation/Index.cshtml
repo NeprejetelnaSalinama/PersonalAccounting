@@ -1,3 +1,5 @@
-﻿@model IEnumerable <DenisAccounting.Models.Operations.IndexViewModel >
+﻿@using DenisAccounting.Models.Operations;
+
+@model IEnumerable <DenisAccounting.Models.Operations.OperationViewModel >
 
 @Html.Partial("_operationsTable", Model)

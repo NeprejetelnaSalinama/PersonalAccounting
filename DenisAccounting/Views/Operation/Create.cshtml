@@ -1,7 +1,7 @@
 ﻿@model DenisAccounting.Models.Operations.CreateViewModel
 
 @{
-    ViewBag.Title = "Create" + Model.categoryType;
+    ViewBag.Title = "Create" + Model.CategoryType;
 }
 
 <h2>Create</h2>
@@ -20,6 +20,9 @@
             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">
                 @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @data_val = "false" } })
+                <div class="col-md-10">
+                    @Html.ValidationMessageFor(model => model.Amount)
+                </div>
             </div>
         </div>
 
@@ -27,27 +30,33 @@
             @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">
                 @Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Select Category...", htmlAttributes: new { @class = "form-control" })
+                <div class="col-md-10">
+                    @Html.ValidationMessageFor(model => model.CategoryId)
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Date, new {@class = "form-control datepicker", @Value = DateTime.Now.ToString(DenisAccounting.Constants.SharedConstants.DATE_FORMAT), id = "IssueDate"})
+                @Html.TextBoxFor(model => model.Date, new {@class = "form-control", @Value = DateTime.Now.ToString(DenisAccounting.Constants.SharedConstants.DATE_FORMAT), id = "IssueDate"})
+                <div class="col-md-10">
+                    @Html.ValidationMessageFor(model => model.Date)
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control noresize", @rows = 5 })
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 5 })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
-                @Html.HiddenFor(model => model.categoryType)
+                @Html.HiddenFor(model => model.CategoryType)
             </div>
         </div>
     </div>
