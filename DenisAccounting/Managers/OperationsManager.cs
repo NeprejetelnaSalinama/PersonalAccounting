@@ -6,6 +6,9 @@ using DenisAccounting.Models.Operations;
 using DenisAccounting.Constants;
 using PagedList;
 using AutoMapper;
+using System;
+using System.Data;
+using System.Web.Mvc;
 
 namespace DenisAccounting.Managers
 {
@@ -13,7 +16,7 @@ namespace DenisAccounting.Managers
     {
         public OperationsManager(AccountingContext db) : base(db) { }
 
-        public IEnumerable<Operation> getOperations()
+        public IEnumerable<Operation> GetOperations()
         {
             var operations = database
                 .Operations
@@ -25,9 +28,8 @@ namespace DenisAccounting.Managers
         {
             var sortValue = sortBy ?? "Date";
             var ascOrder = asc ?? true;
-            var sortedOperations = getOperations();
-
-
+            var sortedOperations = GetOperations();
+            
             if (sortValue == "Date") {
                 if (ascOrder) {
                     sortedOperations = sortedOperations
@@ -51,11 +53,8 @@ namespace DenisAccounting.Managers
 
             var operationsModel = sortedOperations
                 .Select(Mapper.Map<OperationViewModel>);
-
-
-
+            
             return operationsModel.ToList(); ;
-
             }
 
         public List<OperationViewModel> GetTopOperations(int topN)
@@ -65,27 +64,30 @@ namespace DenisAccounting.Managers
 
         public decimal GetBalance()
         {
-            var operations = getOperations();
+            var operations = GetOperations();
             decimal balance = operations
                 .Select(operation => operation.Amount)
                 .Sum();
             return balance;
         }
 
-        public void FilterOperations(OperationsListViewModel model, string filter, string text)
+        public void FilterOperations(OperationsListViewModel model, string amountText, string typeText)
         {
-            /*if (filter.HasValue)
+            model.Filtering.AmountText = string.Format("{0:0.00}", amountText);
+            model.Filtering.TypeText = typeText;
+
+            if (!String.IsNullOrEmpty(amountText)) {
+                string amount = $"{model.Filtering.AmountText} {SharedConstants.DEFAULT_CURRENCY}";
+                model.Operations = GetOperations()
+                        .Where(operation => String.Format("{0:0.00}", operation.Amount) == model.Filtering.AmountText)
+                        .Select(Mapper.Map<OperationViewModel>);
+            }
+            if (String.IsNullOrEmpty(typeText))
             {
-                switch (filter)
-                {
-                    case Filtering.FiltertValues.Amount:
-                        model.Operations = model.Operations
-                            .Where(operation => operation.Amount[0] == '-');
-                    case Filtering.FiltertValues.Date:
-                        model.Operations = model.Operations
-                            .Where(operation => operation.Date.Equals(dat);
-                }
-            }*/
+                model.Operations = GetOperations()
+                        .Where(operation => typeText[0] == '-' ? operation.Amount < 0 : operation.Amount < 0)
+                        .Select(Mapper.Map<OperationViewModel>);
+            }
         }
 
         public void SortOperations(OperationsListViewModel model, string sortedBy, bool? asc)

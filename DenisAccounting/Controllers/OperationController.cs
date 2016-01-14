@@ -6,8 +6,6 @@ using DenisAccounting.Models.Operations;
 using DenisAccounting.Models;
 using DenisAccounting.Managers;
 using AutoMapper;
-using PagedList;
-using DenisAccounting.Constants;
 
 namespace DenisAccounting.Controllers
 {
@@ -24,18 +22,28 @@ namespace DenisAccounting.Controllers
         }
         
 
-        public ViewResult Index(int? page, string sortedBy, bool? asc, string filter, string text)
+        public ViewResult Index(int? page, string sortedBy, bool? asc, string amountText, string typeText)
         {
-            var operations = operationsManager.getOperations();
-            var operationsModel = operations
-                .Select(Mapper.Map<OperationViewModel>);
+            if (!String.IsNullOrEmpty(amountText) && !String.IsNullOrEmpty(amountText))
+            {
+                ModelState.AddModelError("Amount", "Enter a number.");
+            }
 
-            OperationsListViewModel model = new OperationsListViewModel();
-            operationsManager.FilterOperations(model, filter, text);
-            operationsManager.SortOperations(model, sortedBy, asc);
-            operationsManager.PaginateOperations(model, page);
-            
-            return View(model);
+            if (ModelState.IsValid)
+            {
+                var operations = operationsManager.GetOperations();
+                var operationsModel = operations
+                    .Select(Mapper.Map<OperationViewModel>);
+
+                OperationsListViewModel model = new OperationsListViewModel();
+                operationsManager.FilterOperations(model, amountText, typeText);
+                operationsManager.SortOperations(model, sortedBy, asc);
+                operationsManager.PaginateOperations(model, page);
+
+                return View(model);
+            }
+
+            return View()
         }
     
 
@@ -89,11 +97,6 @@ namespace DenisAccounting.Controllers
         [HttpGet]
         public ActionResult Create(Category.CategoryType type)
         {
-            if (type == null)
-            {
-                return HttpNotFound();
-            }
-
             var model = new CreateViewModel();
             model.CategoryType = type;
 
