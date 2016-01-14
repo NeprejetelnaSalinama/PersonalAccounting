@@ -23,14 +23,22 @@ namespace DenisAccounting.Controllers
             currenciesManager = new CurrenciesManager(database);
         }
 
-        public ViewResult Index(int? page)
+        public ViewResult Index(int? page, Sorting.SortValue? sortedBy, bool? asc)
         {
             var operations = operationsManager.getOperations();
             var operationsModel = operations
                 .Select(Mapper.Map<OperationViewModel>);
+
             OperationsListViewModel model = new OperationsListViewModel();
+
+            model.Sorting.SortedBy = sortedBy ?? Sorting.SortValue.Date;
+            model.Sorting.Asc = asc ?? true;
+            model.Operations = operationsManager.getSortedOperations(model.Sorting.SortedBy, model.Sorting.Asc).ToList();
+
             model.Paging.Page = page ?? 1;
-            model.Operations = operationsModel.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
+            model.Operations = model.Operations.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
+
+            
 
             return View(model);
         }

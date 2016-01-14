@@ -2,6 +2,8 @@
 using System.Linq;
 using DenisAccounting.Database;
 using DenisAccounting.Models;
+using DenisAccounting.Models.Operations;
+using AutoMapper;
 
 namespace DenisAccounting.Managers
 {
@@ -17,22 +19,46 @@ namespace DenisAccounting.Managers
             return operations;
         }
 
-        public IEnumerable<Operation> getSortedOperations()
+        public List<OperationViewModel> getSortedOperations(Sorting.SortValue? sortBy, bool? asc)
         {
-            var operations = getOperations();
-            List<Operation> sortedOperations = operations
-                .OrderByDescending(operation => operation.Date)
-                .ToList();
-            return sortedOperations;
-        }
+            var sortValue = sortBy ?? Sorting.SortValue.Date;
+            var ascOrder = asc ?? true;
+            var sortedOperations = getOperations();
 
-        public IEnumerable<Operation> getTopOperations(int topN)
+
+            if (sortValue == Sorting.SortValue.Date) {
+                if (ascOrder) {
+                    sortedOperations = sortedOperations
+                        .OrderBy(operation => operation.Date);
+                } else {
+                    sortedOperations = sortedOperations
+                        .OrderByDescending(operation => operation.Date);
+                }
+            } else if (sortValue == Sorting.SortValue.Amount)
+            {
+                if (ascOrder)
+                {
+                    sortedOperations = sortedOperations
+                        .OrderBy(operation => operation.Amount);
+                }
+                else {
+                    sortedOperations = sortedOperations
+                        .OrderByDescending(operation => operation.Amount);
+                }
+            }
+
+            var operationsModel = sortedOperations
+                .Select(Mapper.Map<OperationViewModel>);
+
+
+
+            return operationsModel.ToList(); ;
+
+            }
+
+        public List<OperationViewModel> getTopOperations(int topN)
         {
-            var sortedOperations = getSortedOperations();
-            List<Operation> topOperations = sortedOperations
-                .Take(topN)
-                .ToList();
-            return topOperations;
+            return getSortedOperations(Sorting.SortValue.Date, true).Take(topN).ToList();
         }
 
         public decimal getBalance()

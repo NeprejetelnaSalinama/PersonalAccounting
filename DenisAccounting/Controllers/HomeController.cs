@@ -20,10 +20,8 @@ namespace DenisAccounting.Controllers
         {
             const int TOP_OPERATIONS = 10;
 
-            var operations = operationsManager.getTopOperations(TOP_OPERATIONS);
-            var operationsModel = operations.
-                    Select(Mapper.Map<Models.Operations.OperationViewModel>);
-
+            var operationsModel = operationsManager.getTopOperations(TOP_OPERATIONS);
+            
             var model = new Models.Home.IndexViewModel
             {
                 Balance = $"{operationsManager.getBalance().ToString()} {SharedConstants.DEFAULT_CURRENCY}",
