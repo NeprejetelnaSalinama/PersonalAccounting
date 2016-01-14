@@ -4,8 +4,8 @@
 
 <table style="width:100%">
     <tr>
-        <td>@Html.ActionLink("Date", "Index", new { sortedby = Sorting.SortValue.Date, asc = Model.Sorting.SortedBy != Sorting.SortValue.Date || !Model.Sorting.Asc })</td>
-        <td>@Html.ActionLink("Amount", "Index", new { sortedby = Sorting.SortValue.Amount, asc = Model.Sorting.SortedBy != Sorting.SortValue.Amount || !Model.Sorting.Asc })</td>
+        <td>@Html.ActionLink("Date", "Index", new { sortedby = "Date", asc = Model.Sorting.SortedBy != "Date" || !Model.Sorting.Asc })</td>
+        <td>@Html.ActionLink("Amount", "Index", new { sortedby = "Amount", asc = Model.Sorting.SortedBy != "Amount" || !Model.Sorting.Asc })</td>
         <td>Category</td>
         <td>Description</td>
     </tr>

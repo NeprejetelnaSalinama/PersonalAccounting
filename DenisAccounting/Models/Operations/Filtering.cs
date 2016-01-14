@@ -7,13 +7,11 @@ namespace DenisAccounting.Models.Operations
 {
     public class Filtering
     {
-
-        public enum FiltertValues { Date, Amount }
-        public FiltertValues FilteredBy { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-        public decimal AmountFrom { get; set; }
-        public decimal AmountTo { get; set; }
-        public Category.CategoryType Type { get; set; }
+        public bool DateFiltered { get; set; }
+        public bool AmountFiltered { get; set; }
+        public bool TypeFiltered { get; set; }
+        public string DateText { get; set; }
+        public string AmountText { get; set; }
+        public string TypeText { get; set; }
     }
 }

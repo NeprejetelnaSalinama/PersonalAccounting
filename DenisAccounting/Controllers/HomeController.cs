@@ -20,11 +20,11 @@ namespace DenisAccounting.Controllers
         {
             const int TOP_OPERATIONS = 10;
 
-            var operationsModel = operationsManager.getTopOperations(TOP_OPERATIONS);
+            var operationsModel = operationsManager.GetTopOperations(TOP_OPERATIONS);
             
             var model = new Models.Home.IndexViewModel
             {
-                Balance = $"{operationsManager.getBalance().ToString()} {SharedConstants.DEFAULT_CURRENCY}",
+                Balance = $"{operationsManager.GetBalance().ToString()} {SharedConstants.DEFAULT_CURRENCY}",
                 Operations = operationsModel
             };
     

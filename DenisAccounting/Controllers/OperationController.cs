@@ -22,30 +22,18 @@ namespace DenisAccounting.Controllers
             categoriesManager = new CategoriesManager(database);
             currenciesManager = new CurrenciesManager(database);
         }
-
-        private void SortOperations(OperationsListViewModel model, Sorting.SortValue? sortedBy, bool? asc)
-        {
-            model.Sorting.SortedBy = sortedBy ?? Sorting.SortValue.Date;
-            model.Sorting.Asc = asc ?? true;
-            model.Operations = operationsManager.getSortedOperations(model.Sorting.SortedBy, model.Sorting.Asc).ToList();
-        }
-
-        private void PaginateOperations(OperationsListViewModel model, int? page)
-        {
-            model.Paging.Page = page ?? 1;
-            model.Operations = model.Operations.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
-        }
         
 
-        public ViewResult Index(int? page, Sorting.SortValue? sortedBy, bool? asc)
+        public ViewResult Index(int? page, string sortedBy, bool? asc, string filter, string text)
         {
             var operations = operationsManager.getOperations();
             var operationsModel = operations
                 .Select(Mapper.Map<OperationViewModel>);
 
             OperationsListViewModel model = new OperationsListViewModel();
-            SortOperations(model, sortedBy, asc);
-            PaginateOperations(model, page);
+            operationsManager.FilterOperations(model, filter, text);
+            operationsManager.SortOperations(model, sortedBy, asc);
+            operationsManager.PaginateOperations(model, page);
             
             return View(model);
         }

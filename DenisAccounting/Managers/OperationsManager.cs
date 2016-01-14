@@ -3,6 +3,8 @@ using System.Linq;
 using DenisAccounting.Database;
 using DenisAccounting.Models;
 using DenisAccounting.Models.Operations;
+using DenisAccounting.Constants;
+using PagedList;
 using AutoMapper;
 
 namespace DenisAccounting.Managers
@@ -19,14 +21,14 @@ namespace DenisAccounting.Managers
             return operations;
         }
 
-        public List<OperationViewModel> getSortedOperations(Sorting.SortValue? sortBy, bool? asc)
+        public List<OperationViewModel> GetSortedOperations(string sortBy, bool? asc)
         {
-            var sortValue = sortBy ?? Sorting.SortValue.Date;
+            var sortValue = sortBy ?? "Date";
             var ascOrder = asc ?? true;
             var sortedOperations = getOperations();
 
 
-            if (sortValue == Sorting.SortValue.Date) {
+            if (sortValue == "Date") {
                 if (ascOrder) {
                     sortedOperations = sortedOperations
                         .OrderBy(operation => operation.Date);
@@ -34,7 +36,7 @@ namespace DenisAccounting.Managers
                     sortedOperations = sortedOperations
                         .OrderByDescending(operation => operation.Date);
                 }
-            } else if (sortValue == Sorting.SortValue.Amount)
+            } else if (sortValue == "Amount")
             {
                 if (ascOrder)
                 {
@@ -56,18 +58,47 @@ namespace DenisAccounting.Managers
 
             }
 
-        public List<OperationViewModel> getTopOperations(int topN)
+        public List<OperationViewModel> GetTopOperations(int topN)
         {
-            return getSortedOperations(Sorting.SortValue.Date, true).Take(topN).ToList();
+            return GetSortedOperations("Date", true).Take(topN).ToList();
         }
 
-        public decimal getBalance()
+        public decimal GetBalance()
         {
             var operations = getOperations();
             decimal balance = operations
                 .Select(operation => operation.Amount)
                 .Sum();
             return balance;
+        }
+
+        public void FilterOperations(OperationsListViewModel model, string filter, string text)
+        {
+            /*if (filter.HasValue)
+            {
+                switch (filter)
+                {
+                    case Filtering.FiltertValues.Amount:
+                        model.Operations = model.Operations
+                            .Where(operation => operation.Amount[0] == '-');
+                    case Filtering.FiltertValues.Date:
+                        model.Operations = model.Operations
+                            .Where(operation => operation.Date.Equals(dat);
+                }
+            }*/
+        }
+
+        public void SortOperations(OperationsListViewModel model, string sortedBy, bool? asc)
+        {
+            model.Sorting.SortedBy = sortedBy ?? "Date";
+            model.Sorting.Asc = asc ?? true;
+            model.Operations = GetSortedOperations(model.Sorting.SortedBy, model.Sorting.Asc).ToList();
+        }
+
+        public void PaginateOperations(OperationsListViewModel model, int? page)
+        {
+            model.Paging.Page = page ?? 1;
+            model.Operations = model.Operations.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
         }
     }
 }
