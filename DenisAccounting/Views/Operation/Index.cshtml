@@ -1,5 +1,9 @@
 ﻿@using DenisAccounting.Models.Operations;
+@using PagedList
+@using PagedList.Mvc
 
 @model OperationsListViewModel
 
 @Html.Partial("_operationsTable", Model)
+
+@Html.PagedListPager((IPagedList)Model.Operations, page => Url.Action("Index", new { page }))

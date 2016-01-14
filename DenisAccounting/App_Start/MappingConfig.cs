@@ -14,7 +14,7 @@ namespace DenisAccounting
 
         private static void RegisterOperationsMappings()
         {
-            Mapper.CreateMap<Operation, Models.Operations.OperationViewModel>()
+            Mapper.CreateMap<Operation, OperationViewModel>()
                 .ForMember(view => view.Amount, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => $"{entity.Amount:0.00} {entity.Currency.Code}"))
                 .ForMember(view => view.CategoryName, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Category.Name))
                 .ForMember(view => view.Date, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Date.ToString(SharedConstants.DATE_FORMAT)))

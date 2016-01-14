@@ -6,6 +6,8 @@ using DenisAccounting.Models.Operations;
 using DenisAccounting.Models;
 using DenisAccounting.Managers;
 using AutoMapper;
+using PagedList;
+using DenisAccounting.Constants;
 
 namespace DenisAccounting.Controllers
 {
@@ -21,14 +23,15 @@ namespace DenisAccounting.Controllers
             currenciesManager = new CurrenciesManager(database);
         }
 
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
             var operations = operationsManager.getOperations();
             var operationsModel = operations
                 .Select(Mapper.Map<OperationViewModel>);
             OperationsListViewModel model = new OperationsListViewModel();
-            model.Operations = operationsModel;
-            
+            model.Paging.Page = page ?? 1;
+            model.Operations = operationsModel.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
+
             return View(model);
         }
     

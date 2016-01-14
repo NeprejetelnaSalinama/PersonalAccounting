@@ -162,6 +162,7 @@
     <Compile Include="Models\Operations\EditViewModel.cs" />
     <Compile Include="Models\Operations\OperationsListViewModel.cs" />
     <Compile Include="Models\Operations\OperationViewModel.cs" />
+    <Compile Include="Models\Operations\Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
