@@ -6,6 +6,8 @@ using DenisAccounting.Models.Operations;
 using DenisAccounting.Models;
 using DenisAccounting.Managers;
 using AutoMapper;
+using PagedList;
+using DenisAccounting.Constants;
 
 namespace DenisAccounting.Controllers
 {
@@ -21,13 +23,34 @@ namespace DenisAccounting.Controllers
             currenciesManager = new CurrenciesManager(database);
         }
         
-        public ViewResult Index()
+        public ViewResult Index(int? page, String sortedBy = "Date")
         {
-            var operations = operationsManager.getOperations();
+            var previousSorting = ViewBag.Sorting;
+            switch (sortedBy)
+            {
+                case "Date":
+                    sortedBy = sortedBy == previousSorting ? "Date_Desc" : "Date";
+                    break;
+                case "Amount":
+                    sortedBy = sortedBy == previousSorting ? "Amount_Desc" : "Amount";
+                    break;
+                default:
+                    goto case "Date";
+                    break;
+
+            }
+            ViewBag.Sorting = sortedBy;
+
+            var operations = operationsManager.getSortedOperations(sortedBy);
             var operationsModel = operations
                 .Select(Mapper.Map<OperationViewModel>);
 
-            return View(operationsModel);
+            var pageNumber = page ?? 1;
+            var onePageOfProducts = operationsModel
+                .AsQueryable()
+                .ToPagedList(pageNumber, SharedConstants.PAGE_SIZE);
+            
+            return View(onePageOfProducts);
         }
 
         
@@ -45,7 +68,7 @@ namespace DenisAccounting.Controllers
 
         private ViewResult FillCreateModel(CreateViewModel model)
         {
-            model.Categories = categoriesManager.GetCategoriesSelectList(model.CategoryId, model.CategoryType);
+            model.Categories = categoriesManager.GetCategoriesList(model.CategoryId, model.CategoryType);
             return View(model);        
         }
         

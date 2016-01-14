@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
+using DenisAccounting.Constants;
 
 namespace DenisAccounting.Models.Operations
 {
@@ -23,7 +23,7 @@ namespace DenisAccounting.Models.Operations
         public decimal Amount { get; set; }
 
         [DisplayName("Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.SharedConstants.DATE_FORMAT)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = SharedConstants.DATE_FORMAT)]
         public DateTime Date { get; set; }
 
         [DisplayName("Description")]

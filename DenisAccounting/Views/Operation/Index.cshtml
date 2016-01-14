@@ -1,5 +1,11 @@
-﻿@using DenisAccounting.Models.Operations;
+﻿@using DenisAccounting.Managers;
+@using PagedList.Mvc;
+@using PagedList;
 
-@model IEnumerable <DenisAccounting.Models.Operations.OperationViewModel >
+@model PagedList.IPagedList<DenisAccounting.Models.Operations.OperationViewModel >
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @Html.Partial("_operationsTable", Model)
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page , sortedby = "Date" }))

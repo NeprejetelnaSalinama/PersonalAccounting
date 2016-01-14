@@ -1,11 +1,12 @@
 ﻿@using DenisAccounting.Models.Operations;
+@using DenisAccounting.Managers;
 
 @model IEnumerable<OperationViewModel>
 
 <table style="width:100%">
     <tr>
-    <td>Date</td>
-    <td>Amount</td>
+    <td>@Html.ActionLink("Date", "Index", new { sortedby = "Date" })</td>
+        <td>@Html.ActionLink("Amount", "Index", new { sortedby = "Amount" })</td>
     <td>Category</td>
     <td>Description</td>
     </tr>

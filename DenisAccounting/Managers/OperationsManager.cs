@@ -10,26 +10,45 @@ namespace DenisAccounting.Managers
     {
         public OperationsManager(AccountingContext db) : base(db) { }
 
-        public IEnumerable<Operation> getOperations()
+
+        private IEnumerable<Operation> getOperations()
         {
             var operations = database
                 .Operations
                 .ToList();
             return operations;
         }
-
-        public IEnumerable<Operation> getSortedOperations()
+        
+        public List<Operation> getSortedOperations(string sortOrder)
         {
             var operations = getOperations();
-            List<Operation> sortedOperations = operations
-                .OrderByDescending(operation => operation.Date)
-                .ToList();
-            return sortedOperations;
+
+            switch (sortOrder)
+            {
+                case null:
+                case "Date":
+                    operations = operations.OrderBy(operation => operation.Date);
+                    break;
+                case "Date_Desc":
+                    operations = operations.OrderByDescending(operation => operation.Date);
+                    break;
+                case "Amount":
+                    operations = operations.OrderBy(operation => operation.Amount);
+                    break;
+                case "Amount_Desc":
+                    operations = operations.OrderByDescending(operation => operation.Amount);
+                    break;
+                default:
+                    goto case null;
+            }
+
+            return operations.ToList();
+
         }
 
         public IEnumerable<Operation> getTopOperations(int topN)
         {
-            var sortedOperations = getSortedOperations();
+            var sortedOperations = getSortedOperations(null);
             List<Operation> topOperations = sortedOperations
                 .Take(topN)
                 .ToList();
