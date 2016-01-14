@@ -143,7 +143,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Constants\SharedConstants.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Database\AccountingContext.cs" />
@@ -161,6 +160,7 @@
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\Operations\CreateViewModel.cs" />
     <Compile Include="Models\Operations\EditViewModel.cs" />
+    <Compile Include="Models\Operations\OperationsListViewModel.cs" />
     <Compile Include="Models\Operations\OperationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,6 +1,8 @@
 ﻿@using DenisAccounting.Models.Operations;
+using System.Linq;
+using System.Collections.Generic;
 
-@model IEnumerable<OperationViewModel>
+@model OperationsListViewModel
 
 <table style="width:100%">
     <tr>
@@ -9,8 +11,9 @@
     <td>Category</td>
     <td>Description</td>
     </tr>
-    @foreach (var operation in Model)
-    {
-        Html.RenderPartial("_operationRow", operation);
-    }
+    @IEnumerable<OperationViewModel> operations = Model.Operations;
+        @foreach (var operation in operations)
+        {
+            Html.RenderPartial("_operationRow", operation);
+        }
 </table>

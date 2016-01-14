@@ -11,17 +11,16 @@ namespace DenisAccounting.Models.Operations
 
         [Required]
         [DisplayName ("Amount")]
-        [DisplayFormat(DataFormatString = "{0:#.00$}")]
         public string Amount { get; set; }
 
-        [Required(ErrorMessage = "The Date is required")]
+        [Required]
         [DisplayName ("Date")]
         public String Date { get; set; }
 
         [DisplayName ("Description")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "The Category is required")]
+        [Required]
         [DisplayName ("Category")]
         public string CategoryName { get; set; }
 

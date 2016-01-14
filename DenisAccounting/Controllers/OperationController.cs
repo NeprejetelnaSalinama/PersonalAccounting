@@ -20,15 +20,18 @@ namespace DenisAccounting.Controllers
             categoriesManager = new CategoriesManager(database);
             currenciesManager = new CurrenciesManager(database);
         }
-        
+
         public ViewResult Index()
         {
             var operations = operationsManager.getOperations();
             var operationsModel = operations
                 .Select(Mapper.Map<OperationViewModel>);
-
-            return View(operationsModel);
+            OperationsListViewModel model = new OperationsListViewModel();
+            model.Operations = operationsModel;
+            
+            return View(model);
         }
+    
 
         
         public ActionResult Details(Guid? id)

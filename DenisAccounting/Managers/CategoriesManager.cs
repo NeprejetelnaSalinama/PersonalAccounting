@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DenisAccounting.Database;
-using System.Data.Entity;
 using System.Web.Mvc;
 using DenisAccounting.Models;
 

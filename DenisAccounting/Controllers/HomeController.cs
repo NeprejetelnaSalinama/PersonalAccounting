@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
+﻿using System.Linq;
 using System.Web.Mvc;
 using DenisAccounting.Managers;
 using AutoMapper;
-using DenisAccounting.Models;
 using DenisAccounting.Constants;
-using DenisAccounting.Database;
 
 namespace DenisAccounting.Controllers
 {
