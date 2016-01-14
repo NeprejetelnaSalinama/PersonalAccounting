@@ -160,6 +160,7 @@
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\Operations\CreateViewModel.cs" />
     <Compile Include="Models\Operations\EditViewModel.cs" />
+    <Compile Include="Models\Operations\Filtering.cs" />
     <Compile Include="Models\Operations\OperationsListViewModel.cs" />
     <Compile Include="Models\Operations\OperationViewModel.cs" />
     <Compile Include="Models\Operations\Paging.cs" />

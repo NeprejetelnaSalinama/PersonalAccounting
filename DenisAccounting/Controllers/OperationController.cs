@@ -23,6 +23,20 @@ namespace DenisAccounting.Controllers
             currenciesManager = new CurrenciesManager(database);
         }
 
+        private void SortOperations(OperationsListViewModel model, Sorting.SortValue? sortedBy, bool? asc)
+        {
+            model.Sorting.SortedBy = sortedBy ?? Sorting.SortValue.Date;
+            model.Sorting.Asc = asc ?? true;
+            model.Operations = operationsManager.getSortedOperations(model.Sorting.SortedBy, model.Sorting.Asc).ToList();
+        }
+
+        private void PaginateOperations(OperationsListViewModel model, int? page)
+        {
+            model.Paging.Page = page ?? 1;
+            model.Operations = model.Operations.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
+        }
+        
+
         public ViewResult Index(int? page, Sorting.SortValue? sortedBy, bool? asc)
         {
             var operations = operationsManager.getOperations();
@@ -30,16 +44,9 @@ namespace DenisAccounting.Controllers
                 .Select(Mapper.Map<OperationViewModel>);
 
             OperationsListViewModel model = new OperationsListViewModel();
-
-            model.Sorting.SortedBy = sortedBy ?? Sorting.SortValue.Date;
-            model.Sorting.Asc = asc ?? true;
-            model.Operations = operationsManager.getSortedOperations(model.Sorting.SortedBy, model.Sorting.Asc).ToList();
-
-            model.Paging.Page = page ?? 1;
-            model.Operations = model.Operations.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
-
+            SortOperations(model, sortedBy, asc);
+            PaginateOperations(model, page);
             
-
             return View(model);
         }
     
