@@ -1,8 +1,5 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using DenisAccounting.Models;
-using DenisAccounting.Database;
-using DenisAccounting.Models.Home;
 using DenisAccounting.Models.Operations;
 using DenisAccounting.Constants;
 
@@ -20,7 +17,7 @@ namespace DenisAccounting
             Mapper.CreateMap<Operation, Models.Operations.OperationViewModel>()
                 .ForMember(view => view.Amount, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => $"{entity.Amount:0.00} {entity.Currency.Code}"))
                 .ForMember(view => view.CategoryName, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Category.Name))
-                .ForMember(view => view.Date, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Date.ToString(Constants.SharedConstants.DATE_FORMAT)))
+                .ForMember(view => view.Date, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Date.ToString(SharedConstants.DATE_FORMAT)))
                 .ForMember(view => view.CurrencyCode, (IMemberConfigurationExpression<Operation> options) => options.MapFrom(entity => entity.Currency.Code));
 
             Mapper.CreateMap<CreateViewModel, Operation>()
