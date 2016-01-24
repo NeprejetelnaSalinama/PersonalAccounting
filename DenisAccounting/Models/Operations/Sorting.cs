@@ -7,7 +7,8 @@ namespace DenisAccounting.Models.Operations
 {
     public class Sorting
     {
-        public bool Asc { get; set; }
-        public string SortedBy { get; set; }
+        public  enum SortType { Date, Amount };
+        
+        public SortType SortedBy { get; set; }
     }
 }

@@ -24,42 +24,49 @@ namespace DenisAccounting.Managers
             return operations;
         }
 
-        public List<OperationViewModel> GetSortedOperations(string sortBy, bool? asc)
+        private IEnumerable<OperationViewModel> SortOperationsByDate(IEnumerable<OperationViewModel> operations)
         {
-            var sortValue = sortBy ?? "Date";
-            var ascOrder = asc ?? true;
-            var sortedOperations = GetOperations();
-            
-            if (sortValue == "Date") {
-                if (ascOrder) {
-                    sortedOperations = sortedOperations
-                        .OrderBy(operation => operation.Date);
-                } else {
-                    sortedOperations = sortedOperations
-                        .OrderByDescending(operation => operation.Date);
-                }
-            } else if (sortValue == "Amount")
+            return operations.OrderByDescending(operation => operation.Date);
+        }
+
+        private IEnumerable<OperationViewModel> SortOperationsByAmount(IEnumerable<OperationViewModel> operations)
+        {
+            return operations.OrderByDescending(operation => operation.Amount);
+        }
+
+        public OperationsListViewModel SortOperations(OperationsListViewModel model, Sorting.SortType? sortBy)
+        {
+            if (model.Sorting.SortedBy == sortBy)
             {
-                if (ascOrder)
+                model.Operations.Reverse();
+            }
+            else
+            {
+                model.Sorting.SortedBy = sortBy ?? Sorting.SortType.Date;
+                switch (sortBy)
                 {
-                    sortedOperations = sortedOperations
-                        .OrderBy(operation => operation.Amount);
-                }
-                else {
-                    sortedOperations = sortedOperations
-                        .OrderByDescending(operation => operation.Amount);
+                    case Sorting.SortType.Date:
+                        {
+                            SortOperationsByDate(model.Operations);
+                            break;
+                        }
+                    case Sorting.SortType.Amount:
+                        {
+                            SortOperationsByAmount(model.Operations);
+                            break;
+                        }
                 }
             }
+            return model;
 
-            var operationsModel = sortedOperations
-                .Select(Mapper.Map<OperationViewModel>);
-            
-            return operationsModel.ToList(); ;
-            }
+        }
 
-        public List<OperationViewModel> GetTopOperations(int topN)
+        public IEnumerable<OperationViewModel> GetTopOperations(int topN)
         {
-            return GetSortedOperations("Date", true).Take(topN).ToList();
+            var operations = GetOperations()
+                .Select(Mapper.Map<OperationViewModel>);
+            operations = SortOperationsByDate(operations);
+            return operations.Take(topN);
         }
 
         public decimal GetBalance()
@@ -70,37 +77,11 @@ namespace DenisAccounting.Managers
                 .Sum();
             return balance;
         }
-
-        public void FilterOperations(OperationsListViewModel model, string amountText, string typeText)
-        {
-            model.Filtering.AmountText = string.Format("{0:0.00}", amountText);
-            model.Filtering.TypeText = typeText;
-
-            if (!String.IsNullOrEmpty(amountText)) {
-                string amount = $"{model.Filtering.AmountText} {SharedConstants.DEFAULT_CURRENCY}";
-                model.Operations = GetOperations()
-                        .Where(operation => String.Format("{0:0.00}", operation.Amount) == model.Filtering.AmountText)
-                        .Select(Mapper.Map<OperationViewModel>);
-            }
-            if (String.IsNullOrEmpty(typeText))
-            {
-                model.Operations = GetOperations()
-                        .Where(operation => typeText[0] == '-' ? operation.Amount < 0 : operation.Amount < 0)
-                        .Select(Mapper.Map<OperationViewModel>);
-            }
-        }
-
-        public void SortOperations(OperationsListViewModel model, string sortedBy, bool? asc)
-        {
-            model.Sorting.SortedBy = sortedBy ?? "Date";
-            model.Sorting.Asc = asc ?? true;
-            model.Operations = GetSortedOperations(model.Sorting.SortedBy, model.Sorting.Asc).ToList();
-        }
-
+        
         public void PaginateOperations(OperationsListViewModel model, int? page)
         {
             model.Paging.Page = page ?? 1;
-            model.Operations = model.Operations.ToList().ToPagedList(model.Paging.Page, SharedConstants.PAGE_SIZE);
+            model.Operations = model.Operations.ToPagedList(model.Paging.Page, Paging.PAGE_SIZE);
         }
     }
 }

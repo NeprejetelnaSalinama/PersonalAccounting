@@ -22,28 +22,18 @@ namespace DenisAccounting.Controllers
         }
         
 
-        public ViewResult Index(int? page, string sortedBy, bool? asc, string amountText, string typeText)
+        public ViewResult Index(int? page, Sorting.SortType? sortedBy, string amountText, Category.CategoryType type)
         {
-            if (!String.IsNullOrEmpty(amountText) && !String.IsNullOrEmpty(amountText))
-            {
-                ModelState.AddModelError("Amount", "Enter a number.");
-            }
+            OperationsListViewModel model = new OperationsListViewModel();
+            model.Operations = operationsManager
+                .GetOperations()
+                .Select(Mapper.Map<OperationViewModel>);
+            
+            //operationsManager.FilterOperations(model, amountText, type);
+            model = operationsManager.SortOperations(model, sortedBy);
+            operationsManager.PaginateOperations(model, page);
 
-            if (ModelState.IsValid)
-            {
-                var operations = operationsManager.GetOperations();
-                var operationsModel = operations
-                    .Select(Mapper.Map<OperationViewModel>);
-
-                OperationsListViewModel model = new OperationsListViewModel();
-                operationsManager.FilterOperations(model, amountText, typeText);
-                operationsManager.SortOperations(model, sortedBy, asc);
-                operationsManager.PaginateOperations(model, page);
-
-                return View(model);
-            }
-
-            return View()
+            return View(model);
         }
     
 
