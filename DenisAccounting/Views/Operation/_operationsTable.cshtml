@@ -15,8 +15,8 @@
 
 <table style="width:100%">
     <tr>
-        <td>@Html.ActionLink("Date", "Index", (@Model.Sorting.SortedBy == Sorting.SortType.Date) && (@Model.Sorting.Revert = (@Model.Sorting.SortedBy == Sorting.SortType.Date)))</td>
-        <td>@Html.ActionLink("Amount", "Index", (@Model.Sorting.SortedBy == Sorting.SortType.Date) && (@Model.Sorting.Revert = (@Model.Sorting.SortedBy == Sorting.SortType.Date)))</td>
+        <td>@Html.ActionLink("Date", "Index", @(Model.Sorting.SortedBy == Sorting.SortType.Date ? Model.Sorting.Revert = true : Model.Sorting.SortedBy == Sorting.SortType.Date))</td>
+        <td>@Html.ActionLink("Amount", "Index", (@Model.Sorting.Revert = (@Model.Sorting.SortedBy == Sorting.SortType.Date)) && (@Model.Sorting.SortedBy == Sorting.SortType.Date))</td>
         <td>Category</td>
         <td>Description</td>
     </tr>

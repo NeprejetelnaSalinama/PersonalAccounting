@@ -6,4 +6,4 @@
 
 @Html.Partial("_operationsTable", Model)
 
-@Html.PagedListPager((IPagedList)Model.Operations, page => Url.Action("Index", new { page, Model.Sorting.SortedBy}))
+@Html.PagedListPager((IPagedList)Model.Operations, page => Url.Action("Index", Model))
