@@ -22,16 +22,15 @@ namespace DenisAccounting.Controllers
         }
         
 
-        public ViewResult Index(int? page, Sorting.SortType? sortedBy, string amountText, Category.CategoryType? type)
+        public ViewResult Index(OperationsListViewModel model)
         {
-            OperationsListViewModel model = new OperationsListViewModel();
             model.Operations = operationsManager
                 .GetOperations()
                 .Select(Mapper.Map<OperationViewModel>);
                        
             //operationsManager.FilterOperations(model, amountText, type);
-            operationsManager.SortOperations(model, sortedBy ?? Sorting.SortType.Date);
-            operationsManager.PaginateOperations(model, page);
+            operationsManager.SortOperations(model);
+            operationsManager.PaginateOperations(model);
 
             return View(model);
         }

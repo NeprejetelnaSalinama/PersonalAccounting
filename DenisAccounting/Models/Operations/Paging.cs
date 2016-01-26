@@ -10,5 +10,10 @@ namespace DenisAccounting.Models.Operations
         public const int PAGE_SIZE = 3;
 
         public int Page { get; set; }
+
+        public Paging()
+        {
+            Page = 1;
+        }
     }
 }

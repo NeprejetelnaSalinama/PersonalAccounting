@@ -34,16 +34,16 @@ namespace DenisAccounting.Managers
             return operations.OrderByDescending(operation => Convert.ToDouble(operation.Amount));
         }
 
-        public void SortOperations(OperationsListViewModel model, Sorting.SortType sortBy)
+        public void SortOperations(OperationsListViewModel model)
         {
-            if (model.Sorting.SortedBy == sortBy)
+            if (model.Sorting.Revert)
             {
-                model.Operations = model.Operations.Reverse();
+                model.Operations.Reverse();
+                model.Sorting.Revert = false;
             }
             else
             {
-                model.Sorting.SortedBy = sortBy;
-                switch (sortBy)
+                switch (model.Sorting.SortedBy)
                 {
                     case Sorting.SortType.Date:
                         {
@@ -81,9 +81,8 @@ namespace DenisAccounting.Managers
             return balance;
         }
         
-        public void PaginateOperations(OperationsListViewModel model, int? page)
+        public void PaginateOperations(OperationsListViewModel model)
         {
-            model.Paging.Page = page ?? 1;
             model.Operations = model.Operations.ToPagedList(model.Paging.Page, Paging.PAGE_SIZE);
         }
     }
