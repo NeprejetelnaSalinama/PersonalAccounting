@@ -7,7 +7,7 @@ namespace DenisAccounting.Models.Operations
 {
     public class Paging
     {
-        public const int PAGE_SIZE = 20;
+        public const int PAGE_SIZE = 3;
 
         public int Page { get; set; }
     }

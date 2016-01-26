@@ -31,33 +31,36 @@ namespace DenisAccounting.Managers
 
         private IEnumerable<OperationViewModel> SortOperationsByAmount(IEnumerable<OperationViewModel> operations)
         {
-            return operations.OrderByDescending(operation => operation.Amount);
+            return operations.OrderByDescending(operation => Convert.ToDouble(operation.Amount));
         }
 
-        public OperationsListViewModel SortOperations(OperationsListViewModel model, Sorting.SortType? sortBy)
+        public void SortOperations(OperationsListViewModel model, Sorting.SortType sortBy)
         {
             if (model.Sorting.SortedBy == sortBy)
             {
-                model.Operations.Reverse();
+                model.Operations = model.Operations.Reverse();
             }
             else
             {
-                model.Sorting.SortedBy = sortBy ?? Sorting.SortType.Date;
+                model.Sorting.SortedBy = sortBy;
                 switch (sortBy)
                 {
                     case Sorting.SortType.Date:
                         {
-                            SortOperationsByDate(model.Operations);
+                            model.Operations = SortOperationsByDate(model.Operations);
                             break;
                         }
                     case Sorting.SortType.Amount:
                         {
-                            SortOperationsByAmount(model.Operations);
+                            model.Operations = SortOperationsByAmount(model.Operations);
+                            break;
+                        }
+                    case Sorting.SortType.Unsorted:
+                        {
                             break;
                         }
                 }
             }
-            return model;
 
         }
 

@@ -2,7 +2,7 @@
 
 @model OperationsListViewModel
 
-<div class="form-group">
+@*<div class="form-group">
     <h5>Filter Amount</h5>
     <div class="col-md-3">
         @Html.EditorFor(model => model.Filtering.AmountText, new { htmlAttributes = new { @class = "form-control", @data_val = "true" } })
@@ -10,13 +10,13 @@
             @Html.ValidationMessageFor(model => model.Filtering.AmountText)
         </div>
     </div>
-    <input type="button" value="Filter" onclick="location.href='@Url.Action("Index", "Operation", new { page = Model.Paging.Page, sortedBy = Model.Sorting.SortedBy, asc = Model.Sorting.Asc, amountText = Model.Filtering.AmountText, typeText = Model.Filtering.TypeText })'" />
-</div>
+    <input type="button" value="Filter" onclick="location.href='@Url.Action("Index", "Operation", new { page = Model.Paging.Page, sortedBy = Model.Sorting.SortedBy })'" />
+    </div>*@
 
 <table style="width:100%">
     <tr>
-        <td>@Html.ActionLink("Date", "Index", new { sortedby = "Date", asc = Model.Sorting.SortedBy != "Date" || !Model.Sorting.Asc })</td>
-        <td>@Html.ActionLink("Amount", "Index", new { sortedby = "Amount", asc = Model.Sorting.SortedBy != "Amount" || !Model.Sorting.Asc })</td>
+        <td>@Html.ActionLink("Date", "Index", new { sortBy = Sorting.SortType.Date })</td>
+        <td>@Html.ActionLink("Amount", "Index", new { sortBy = Sorting.SortType.Amount })</td>
         <td>Category</td>
         <td>Description</td>
     </tr>
