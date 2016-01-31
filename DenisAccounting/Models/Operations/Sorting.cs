@@ -10,12 +10,12 @@ namespace DenisAccounting.Models.Operations
         public  enum SortType { Unsorted, Date, Amount };
         
         public SortType SortedBy { get; set; }
-        public bool Revert { get; set; }
+        public bool Ascending { get; set; }
 
         public Sorting()
         {
             SortedBy = SortType.Unsorted;
-            Revert = false;
+            Ascending = false;
         }
     }
 }

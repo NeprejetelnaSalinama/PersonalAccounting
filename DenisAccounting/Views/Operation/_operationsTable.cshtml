@@ -13,10 +13,29 @@
     <input type="button" value="Filter" onclick="location.href='@Url.Action("Index", "Operation", new { page = Model.Paging.Page, sortedBy = Model.Sorting.SortedBy })'" />
     </div>*@
 
+@{
+        var newSortingDate = new Sorting
+        {
+            SortedBy = Sorting.SortType.Date,
+            Ascending = Model.Sorting.SortedBy == Sorting.SortType.Date
+        };
+
+        var newSortingAmount = new Sorting
+        {
+            SortedBy = Sorting.SortType.Amount,
+            Ascending = Model.Sorting.SortedBy == Sorting.SortType.Amount
+        };
+
+        var newPaging = new Paging
+        {
+            Page = Model.Paging.Page
+    };
+ }
+
 <table style="width:100%">
     <tr>
-        <td>@Html.ActionLink("Date", "Index", @(Model.Sorting.SortedBy == Sorting.SortType.Date ? Model.Sorting.Revert = true : Model.Sorting.SortedBy == Sorting.SortType.Date))</td>
-        <td>@Html.ActionLink("Amount", "Index", (@Model.Sorting.Revert = (@Model.Sorting.SortedBy == Sorting.SortType.Date)) && (@Model.Sorting.SortedBy == Sorting.SortType.Date))</td>
+        <td>@Html.ActionLink("Date", "Index", newSortingDate, newPaging)</td>
+        <td>@Html.ActionLink("Amount", "Index", newSortingAmount, newPaging)</td>
         <td>Category</td>
         <td>Description</td>
     </tr>

@@ -16,60 +16,51 @@ namespace DenisAccounting.Managers
     {
         public OperationsManager(AccountingContext db) : base(db) { }
 
-        public IEnumerable<Operation> GetOperations()
+        private IEnumerable<Operation> GetOperations()
         {
             var operations = database
-                .Operations
-                .ToList();
+                .Operations;
             return operations;
         }
 
-        private IEnumerable<OperationViewModel> SortOperationsByDate(IEnumerable<OperationViewModel> operations)
+        public IEnumerable<Operation> GetSortedOperations(Sorting sorting)
         {
-            return operations.OrderByDescending(operation => operation.Date);
-        }
-
-        private IEnumerable<OperationViewModel> SortOperationsByAmount(IEnumerable<OperationViewModel> operations)
-        {
-            return operations.OrderByDescending(operation => Convert.ToDouble(operation.Amount));
-        }
-
-        public void SortOperations(OperationsListViewModel model)
-        {
-            if (model.Sorting.Revert)
+            var sortedOperations = GetOperations();
+            switch (sorting.SortedBy)
             {
-                model.Operations.Reverse();
-                model.Sorting.Revert = false;
+                case Sorting.SortType.Date:
+                    {
+                        sortedOperations = sortedOperations
+                                    .OrderByDescending(operation => operation.Date);
+                        break;
+                    }
+                case Sorting.SortType.Amount:
+                    {
+                        sortedOperations = sortedOperations
+                                    .OrderByDescending(operation => operation.Amount);
+                        break;
+                    }
+                case Sorting.SortType.Unsorted:
+                    {
+                        goto case Sorting.SortType.Date;
+                    }
             }
-            else
+            if (sorting.Ascending)
             {
-                switch (model.Sorting.SortedBy)
-                {
-                    case Sorting.SortType.Date:
-                        {
-                            model.Operations = SortOperationsByDate(model.Operations);
-                            break;
-                        }
-                    case Sorting.SortType.Amount:
-                        {
-                            model.Operations = SortOperationsByAmount(model.Operations);
-                            break;
-                        }
-                    case Sorting.SortType.Unsorted:
-                        {
-                            break;
-                        }
-                }
+                sortedOperations = sortedOperations.Reverse();
             }
-
+            return sortedOperations;
         }
 
-        public IEnumerable<OperationViewModel> GetTopOperations(int topN)
+        public IEnumerable<Operation> GetTopOperations(int topN)
         {
-            var operations = GetOperations()
-                .Select(Mapper.Map<OperationViewModel>);
-            operations = SortOperationsByDate(operations);
-            return operations.Take(topN);
+            var sortingByDateDesc = new Sorting
+            {
+                SortedBy = Sorting.SortType.Date,
+                Ascending = false
+            };
+            var operations = GetSortedOperations(sortingByDateDesc).Take(topN);
+            return operations;
         }
 
         public decimal GetBalance()
@@ -81,9 +72,11 @@ namespace DenisAccounting.Managers
             return balance;
         }
         
-        public void PaginateOperations(OperationsListViewModel model)
+        public IEnumerable<Operation> PaginateOperations(Paging paging, IEnumerable<Operation> operations)
         {
-            model.Operations = model.Operations.ToPagedList(model.Paging.Page, Paging.PAGE_SIZE);
+            int page = paging.Page ?? 1;
+            paging.Page = page;
+            return operations.ToPagedList(page, Paging.PAGE_SIZE);
         }
     }
 }

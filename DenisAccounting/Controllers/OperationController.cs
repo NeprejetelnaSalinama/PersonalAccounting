@@ -6,6 +6,7 @@ using DenisAccounting.Models.Operations;
 using DenisAccounting.Models;
 using DenisAccounting.Managers;
 using AutoMapper;
+using DenisAccounting.Extensions;
 
 namespace DenisAccounting.Controllers
 {
@@ -24,13 +25,15 @@ namespace DenisAccounting.Controllers
 
         public ViewResult Index(OperationsListViewModel model)
         {
-            model.Operations = operationsManager
-                .GetOperations()
+           var sortedOperations = operationsManager
+                .GetSortedOperations(model.Sorting);
+
+            var pagedViewOperations = sortedOperations
                 .Select(Mapper.Map<OperationViewModel>);
-                       
-            //operationsManager.FilterOperations(model, amountText, type);
-            operationsManager.SortOperations(model);
-            operationsManager.PaginateOperations(model);
+
+            model.Operations = EnumerableExtensions.AsPaginatedList<OperationViewModel>(pagedViewOperations, model.Paging);
+
+
 
             return View(model);
         }

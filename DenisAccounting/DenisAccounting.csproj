@@ -147,9 +147,12 @@
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Database\AccountingContext.cs" />
     <Compile Include="Database\AccountingInitializer.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\ModelExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Managers\BaseManager.cs" />
     <Compile Include="Managers\CategoriesManager.cs" />
     <Compile Include="Managers\CurrenciesManager.cs" />
