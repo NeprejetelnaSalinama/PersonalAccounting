@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Date, "{0:MM/dd/yyyy}", new { @class = "form-control default-date-picker" })
+                @Html.TextBoxFor(m => m.Date, SharedConstants.DATE_FORMAT)
                 <div class="col-md-10">
                     @Html.ValidationMessageFor(model => model.Date)
                 </div>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using DenisAccounting.Constants;
 
 
 namespace DenisAccounting.Models.Operations

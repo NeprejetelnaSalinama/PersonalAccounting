@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DenisAccounting.Models.Operations;
 using PagedList;
 using System.Linq;
-using DenisAccounting.Managers;
+using DenisAccounting.Constants;
 
 namespace DenisAccounting.Extensions
 {
@@ -13,7 +12,7 @@ namespace DenisAccounting.Extensions
         {
             int page = paging.Page ?? 1;
             IQueryable<T> qItems = items.AsQueryable();
-            var pagedList = new StaticPagedList<T>(qItems, page, Paging.PAGE_SIZE, totalItemCount);
+            var pagedList = new StaticPagedList<T>(qItems, page, SharedConstants.PAGE_SIZE, totalItemCount);
             return pagedList;
         }
     }

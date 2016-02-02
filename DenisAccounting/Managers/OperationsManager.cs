@@ -5,10 +5,7 @@ using DenisAccounting.Models;
 using DenisAccounting.Models.Operations;
 using DenisAccounting.Constants;
 using PagedList;
-using AutoMapper;
-using System;
 using System.Data;
-using System.Web.Mvc;
 
 namespace DenisAccounting.Managers
 {
@@ -72,7 +69,7 @@ namespace DenisAccounting.Managers
         {
             int page = paging.Page ?? 1;
             paging.Page = page;
-            return operations.ToPagedList(page, Paging.PAGE_SIZE);
+            return operations.ToPagedList(page, SharedConstants.PAGE_SIZE);
         }
     }
 }
