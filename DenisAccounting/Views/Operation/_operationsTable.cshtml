@@ -1,4 +1,5 @@
 ﻿@using DenisAccounting.Models.Operations;
+@using DenisAccounting.Extensions
 
 @model OperationsListViewModel
 
@@ -25,17 +26,13 @@
             SortedBy = Sorting.SortType.Amount,
             Ascending = Model.Sorting.SortedBy == Sorting.SortType.Amount
         };
-
-        var newPaging = new Paging
-        {
-            Page = Model.Paging.Page
-    };
+    
  }
 
 <table style="width:100%">
     <tr>
-        <td>@Html.ActionLink("Date", "Index", newSortingDate, newPaging)</td>
-        <td>@Html.ActionLink("Amount", "Index", newSortingAmount, newPaging)</td>
+        <td>@Html.ActionLinkEx("Date", "Index", newSortingDate, Model.Paging)</td>
+        <td>@Html.ActionLinkEx("Amount", "Index", newSortingAmount, Model.Paging)</td>
         <td>Category</td>
         <td>Description</td>
     </tr>

@@ -25,16 +25,18 @@ namespace DenisAccounting.Controllers
 
         public ViewResult Index(OperationsListViewModel model)
         {
-           var sortedOperations = operationsManager
+            model.Sorting = model.Sorting ?? new Sorting();
+            model.Paging = model.Paging ?? new Paging();
+
+            var sortedOperations = operationsManager
                 .GetSortedOperations(model.Sorting);
 
-            var pagedViewOperations = sortedOperations
+            var pagedViewOperations = operationsManager
+                .PaginateOperations(model.Paging, sortedOperations)
                 .Select(Mapper.Map<OperationViewModel>);
 
-            model.Operations = EnumerableExtensions.AsPaginatedList<OperationViewModel>(pagedViewOperations, model.Paging);
-
-
-
+            model.Operations = EnumerableExtensions.AsPaginatedList(pagedViewOperations, model.Paging, sortedOperations.Count());
+            
             return View(model);
         }
     

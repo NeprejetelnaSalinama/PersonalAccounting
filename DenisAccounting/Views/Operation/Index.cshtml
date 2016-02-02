@@ -1,9 +1,10 @@
 ﻿@using DenisAccounting.Models.Operations;
-@using PagedList
+@using PagedList;
 @using PagedList.Mvc
+@using DenisAccounting.Extensions;
 
 @model OperationsListViewModel
 
 @Html.Partial("_operationsTable", Model)
 
-@Html.PagedListPager((IPagedList)Model.Operations, page => Url.Action("Index",  new OperationsListViewModel { Paging = new Paging { Page = page }, Sorting = Model.Sorting } ))
+@Html.PagedListPager((IPagedList)Model.Operations, page => Url.ActionEx("Index", Model.Sorting, page ))

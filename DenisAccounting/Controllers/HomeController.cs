@@ -32,5 +32,14 @@ namespace DenisAccounting.Controllers
 
         return View(model);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                database.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

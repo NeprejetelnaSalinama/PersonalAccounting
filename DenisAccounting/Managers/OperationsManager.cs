@@ -16,7 +16,7 @@ namespace DenisAccounting.Managers
     {
         public OperationsManager(AccountingContext db) : base(db) { }
 
-        private IEnumerable<Operation> GetOperations()
+        public IEnumerable<Operation> GetOperations()
         {
             var operations = database
                 .Operations;
@@ -39,10 +39,6 @@ namespace DenisAccounting.Managers
                         sortedOperations = sortedOperations
                                     .OrderByDescending(operation => operation.Amount);
                         break;
-                    }
-                case Sorting.SortType.Unsorted:
-                    {
-                        goto case Sorting.SortType.Date;
                     }
             }
             if (sorting.Ascending)

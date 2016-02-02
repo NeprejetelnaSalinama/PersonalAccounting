@@ -15,11 +15,8 @@ namespace DenisAccounting.Models.Operations
         public OperationsListViewModel()
         {
             Operations = Enumerable.Empty<OperationViewModel>();
-            Paging = new Paging();
-            Sorting = new Sorting();
-            Filtering = new Filtering();
         }
-
+        
 
     }
 }
